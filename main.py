@@ -1,7 +1,7 @@
 import subprocess
 import platform
 from pytube import YouTube
-
+from colorama import Fore, Back, Style
 
 from pyfiglet import Figlet
 from colorama import init, Fore
@@ -21,7 +21,7 @@ table_data = [
 ]
 table = tabulate(table_data, tablefmt="grid")
 print(Fore.YELLOW + ascii_art + Fore.RESET )
-horizontal_line = Fore.RED + "==========================================" + Fore.RESET
+horizontal_line = Fore.RED + "========================================" + Fore.RESET
 print(Fore.GREEN+"+--------------------------------------+")
 print(Fore.GREEN+"| WELCOME TO UDA BOT | LINUX CLI TOOLS |")
 print(Fore.GREEN+"+--------------------------------------+")
@@ -47,6 +47,12 @@ def download_youtube_video(url, output_path=None):
         else:
             video_stream.download()
         print(Fore.CYAN + "Download selesai.")
+        print(Fore.RED + "                            // II \\\\")
+        print(Fore.RED + "                           //  II  \\\\")
+        print(Fore.RED + "                           \\\\  II  //")
+        print(Fore.RED + "                            \\\\ <> //")
+        print(Fore.RED + "      jika video tidak tidak tersedia di video mungkin anda ")
+        print(Fore.RED + " perlu membukanya secara manual di folder udabot di perangkat anda <!>")
     except Exception as e:
         print(Fore.RED + "Gagal di-download. Periksa link atau jaringan cuy:", str(e))
         
@@ -72,16 +78,20 @@ def download_audio_as_mp3(video_url):
         print("Gagal mengunduh audio:", str(e))
         
         
-        
+def print_colored(text, color=Fore.WHITE, bg_color=Back.BLACK):
+    print(bg_color + color + text + Style.RESET_ALL)   
+
 def print_menu():
-    print("+------------------------------------+")
-    print("| No. |          Pilihan             |")
-    print("+------------------------------------+")
-    print("|  1  | internet speed test          |")
-    print("|  2  | google translate             |")
-    print("|  3  | youtube video download       |")
-    print("|  0  | youtube audio download       |")
-    print("+------------------------------------+")
+    header = "+------------------------------------+"
+    print(header)
+    print_colored("| No. |          Pilihan             |", Fore.WHITE, Back.BLUE)
+    print(header)
+    print_colored("|  1  | internet speed test          |", Fore.WHITE)
+    print_colored("|  2  | google translate             |", Fore.WHITE)
+    print_colored("|  3  | youtube video download       |", Fore.WHITE)
+    print_colored("|  0  | youtube audio download       |", Fore.WHITE)
+    print(header)
+    
 
 
 
