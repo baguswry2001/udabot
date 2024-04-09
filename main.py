@@ -119,6 +119,10 @@ def TiktokTools():
         table = tabulate(data, headers=headers, tablefmt="fancy_grid")
         print(table)
 
+    # def generate_comentar()
+    
+    
+
     def get_user_choicetiktok():
         while True:
             user_input = input("Masukkan pilihan Anda (1/2/0) : ")
