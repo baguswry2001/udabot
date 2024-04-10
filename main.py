@@ -83,6 +83,52 @@ def print_colored(text, color=Fore.WHITE, bg_color=Back.BLACK):
 
 
 def TiktokTools():
+    def ComentarGenerate():
+        import requests
+        import json
+        import re
+        from bs4 import BeautifulSoup
+        from tabulate import tabulate
+        def extract_video_id(url):
+            pattern = r'/video/(\d+)'
+            match = re.search(pattern, url)
+            if match:
+                return match.group(1)
+            else:
+                return None 
+        url = input("Masukan Link video : ")
+        response = requests.get(url)
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        current_url = response.url
+        IdVideo = extract_video_id(current_url)
+        url = "https://tiktok82.p.rapidapi.com/getVideoComments"
+        headers = {
+            "X-RapidAPI-Key": "52085e5519mshde8a01821852f2ep1a5a1ejsn91497279f385",
+            "X-RapidAPI-Host": "tiktok82.p.rapidapi.com"
+        }
+        table_data = []
+        for _ in range(2):
+            querystring = {"video_id": IdVideo}
+            response = requests.get(url, headers=headers, params=querystring)
+            
+            if response.status_code == 200:
+                formatted_response = json.dumps(response.json(), indent=4)
+                data = json.loads(formatted_response)
+                comments = data["data"]["comments"]
+                
+                for comment in comments:
+                    text = comment["text"]
+                    user = comment["user"]["nickname"]
+                    table_data.append([user, text])
+                    
+                if len(table_data) >= 40:
+                    break
+                    
+            else:
+                print("Gagal mendapatkan respons:", response.status_code)
+                break
+        print(tabulate(table_data[:40], headers=["Username", "komentar"], tablefmt="grid"))
     def TiktokToolsmenu():
         print(Fore.CYAN , "          ;++xx     ")
         print(Fore.CYAN , "          ;X$$Xx    ")
@@ -99,9 +145,6 @@ def TiktokTools():
         print(header)
         print_colored("|    TIKTIOK TOOLS     |", Fore.WHITE, Back.BLUE)
         print(header)
-        
-        
-
         headers = ["NO", "TOOLS",]
         data = [
             [1, "Tiktok download video"],
@@ -112,17 +155,9 @@ def TiktokTools():
             [4, "Tiktok coment video generate + identity "],
             [5, "Tiktok user profile info generate"],
             [7, "Tiktok audio info  generate"],
-            
         ]
-
-        # Mencetak tabel menggunakan tabulate
         table = tabulate(data, headers=headers, tablefmt="fancy_grid")
         print(table)
-
-    # def generate_comentar()
-    
-    
-
     def get_user_choicetiktok():
         while True:
             user_input = input("Masukkan pilihan Anda (1/2/0) : ")
@@ -130,7 +165,6 @@ def TiktokTools():
                 return user_input
             else:
                 print("Pilihan tidak valid. Silakan masukkan nomor pilihan yang benar.")
-                
     def choicemenu():
         while True:
             TiktokToolsmenu()
@@ -144,15 +178,30 @@ def TiktokTools():
                     subprocess.run(["python", "scraping1.py", ], check=True)
                 except FileNotFoundError:
                     print("MAAF Ada kesalahan pastikan koneksi anda stabil")
+                    
             elif user_choice == "3":
-                url=input("link video =>")
-                download_youtube_video(url)
+                ComentarGenerate()
 
             elif user_choice == '0':
                 print("Terima kasih telah menggunakan program ini.")
                 break
-    
     choicemenu()
+
+
+def download_audio_as_mp3(video_url):
+    try:
+        yt = YouTube(video_url)
+        audio_stream = yt.streams.filter(only_audio=True).first()
+        audio_stream.download(filename_prefix="audio_")
+        print("Unduhan audio berhasil")
+    except Exception as e:
+        print("Gagal mengunduh audio:", str(e))
+
+
+
+
+
+
 
 def get_user_choice():
     while True:
@@ -192,8 +241,11 @@ def main():
         elif user_choice == "3":
             url=input("link video =>")
             download_youtube_video(url)
+        elif user_choice =="4":
+            print("Anda memilih Audio Download (MP3).")
+            download_audio_as_mp3
             
-        elif user_choice == "4":
+        elif user_choice == "5":
             TiktokTools()
 
         elif user_choice == '0':

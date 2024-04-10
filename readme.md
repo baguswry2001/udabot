@@ -7,6 +7,7 @@ SAYA AKAN MENCOBA MENGHASILKAN 1 TOOLS PERHARI SELAMA BEBERAPA WAKTU
 - DI BUAT PADA TANGGAL 7 APRIL 2024
 - YOUTUBE DOWNLOAD VIDEO 8 APRIL 2024
 - 01:11 AM - 10 APRIL 2024 | update tools generate komentar pada tools tiktok
+- 01:38 AM - 11 APRIL 2024 | update tiktok generate comentar dan penambahan fitur youtube audio download
 
 ## Instalasi
 
