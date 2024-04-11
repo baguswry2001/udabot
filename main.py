@@ -129,6 +129,49 @@ def TiktokTools():
                 print("Gagal mendapatkan respons:", response.status_code)
                 break
         print(tabulate(table_data[:40], headers=["Username", "komentar"], tablefmt="grid"))
+    
+    def TiktokDownloadVideo(): 
+        import requests
+        import re
+        import uuid
+        from bs4 import BeautifulSoup
+
+        def extract_video_id(url):
+            pattern = r'/video/(\d+)'
+            match = re.search(pattern, url)
+            if match:
+                return match.group(1)
+            else:
+                return None 
+
+        def download_video(url, filename):
+            with open(filename, 'wb') as f:
+                response = requests.get(url, stream=True)
+                if response.status_code == 200:
+                    f.write(response.content)
+                    print("Video berhasil diunduh")
+                else:
+                    print("Gagal mengunduh video")
+
+        url = input("Masukan Link video : ")
+        response = requests.get(url)
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        current_url = response.url
+        IdVideo = extract_video_id(current_url)
+
+        # Generate nama file acak menggunakan uuid
+        random_filename = str(uuid.uuid4()) + ".mp4"
+
+        url_video = f"https://www.tikwm.com/video/media/play/{IdVideo}.mp4"
+        download_video(url_video, random_filename)
+    
+            
+        
+        
+        
+        
+    
     def TiktokToolsmenu():
         print(Fore.CYAN , "          ;++xx     ")
         print(Fore.CYAN , "          ;X$$Xx    ")
@@ -148,7 +191,6 @@ def TiktokTools():
         headers = ["NO", "TOOLS",]
         data = [
             [1, "Tiktok download video"],
-            [2,"Tiktok download video no watermark ( logo )"],
             [8, "Tiktok download all video frome profile"],
             [6, "Tiktok audio download"],
             [3, "Tiktok comment video generate"],
@@ -171,7 +213,7 @@ def TiktokTools():
             user_choice = get_user_choicetiktok()
 
             if user_choice == '1':
-                print("menu belum tersedia")
+                TiktokDownloadVideo()
         
             elif user_choice == '2':
                 try:
@@ -206,7 +248,7 @@ def download_audio_as_mp3(video_url):
 def get_user_choice():
     while True:
         user_input = input("Masukkan pilihan Anda (1/2/0) : ")
-        if user_input in ['1', '2', '3' ,'4','0']:
+        if user_input in ['1', '2', '3' ,'4', '5', '0']:
             return user_input
         else:
             print("Pilihan tidak valid. Silakan masukkan nomor pilihan yang benar.")
