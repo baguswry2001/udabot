@@ -159,14 +159,55 @@ def TiktokTools():
         soup = BeautifulSoup(html_content, 'html.parser')
         current_url = response.url
         IdVideo = extract_video_id(current_url)
-
-        # Generate nama file acak menggunakan uuid
         random_filename = str(uuid.uuid4()) + ".mp4"
 
         url_video = f"https://www.tikwm.com/video/media/play/{IdVideo}.mp4"
         download_video(url_video, random_filename)
+        
     
-            
+
+
+    def TiktokDownloadAudio():
+        import requests
+        import re
+        import uuid
+        from bs4 import BeautifulSoup
+        from moviepy.editor import VideoFileClip
+        def extract_video_id(url):
+            pattern = r'/video/(\d+)'
+            match = re.search(pattern, url)
+            if match:
+                return match.group(1)
+            else:
+                return None
+        def download_video(url, filename):
+            with open(filename, 'wb') as f:
+                response = requests.get(url, stream=True)
+                if response.status_code == 200:
+                    f.write(response.content)
+                    print("generate link ")
+                else:
+                    print("Gagal mengenerate ")
+
+        url = input("Masukan Link : ")
+        response = requests.get(url)
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        current_url = response.url
+        IdVideo = extract_video_id(current_url)
+        random_filename = str(uuid.uuid4()) + ".mp4"
+        url_video = f"https://www.tikwm.com/video/media/play/{IdVideo}.mp4"
+        download_video(url_video, random_filename)
+        audio_filename = random_filename.split('.')[0] + ".mp3"
+        video = VideoFileClip(random_filename)
+        audio = video.audio
+        audio.write_audiofile(audio_filename)
+        video.close()
+        import os
+        os.remove(random_filename)
+        return audio_filename
+
+        
         
         
         
@@ -188,15 +229,15 @@ def TiktokTools():
         print(header)
         print_colored("|    TIKTIOK TOOLS     |", Fore.WHITE, Back.BLUE)
         print(header)
-        headers = ["NO", "TOOLS",]
+        headers = ["NO", "TIKTOK TOOLS",]
         data = [
-            [1, "Tiktok download video"],
-            [8, "Tiktok download all video frome profile"],
-            [6, "Tiktok audio download"],
-            [3, "Tiktok comment video generate"],
-            [4, "Tiktok coment video generate + identity "],
-            [5, "Tiktok user profile info generate"],
-            [7, "Tiktok audio info  generate"],
+            [1, "Download Video"],
+            [2, "Download Audio "],
+            [3, "Comment VIdeo Generate"],
+            [4, "Audio info  generate"],
+            [8, "Download all video frome profile"],
+            [4, "coment video generate + identity "],
+            [5, "user profile info generate"],
         ]
         table = tabulate(data, headers=headers, tablefmt="fancy_grid")
         print(table)
@@ -216,10 +257,9 @@ def TiktokTools():
                 TiktokDownloadVideo()
         
             elif user_choice == '2':
-                try:
-                    subprocess.run(["python", "scraping1.py", ], check=True)
-                except FileNotFoundError:
-                    print("MAAF Ada kesalahan pastikan koneksi anda stabil")
+                TiktokDownloadAudio()
+                print("Download audio berhasil....")
+                
                     
             elif user_choice == "3":
                 ComentarGenerate()
@@ -258,11 +298,12 @@ def print_menu():
     print(header)
     print_colored("| No. |          Pilihan             |", Fore.WHITE, Back.BLUE)
     print(header)
-    print_colored("|  1  | internet speed test          |", Fore.WHITE)
-    print_colored("|  2  | google translate             |", Fore.WHITE)
-    print_colored("|  3  | youtube video download       |", Fore.WHITE)
-    print_colored("|  4  | youtube audio download       |", Fore.WHITE)
-    print_colored("|  5  | TIKTOK Tools                 |", Fore.WHITE)
+    print_colored("|  1  | Internet speed test          |", Fore.WHITE)
+    print_colored("|  2  | Google translate             |", Fore.WHITE)
+    print_colored("|  3  | Youtube video download       |", Fore.WHITE)
+    print_colored("|  4  | Youtube audio download       |", Fore.WHITE)
+    print_colored("|  5  | Tiktok Tools                 |", Fore.WHITE)
+    print_colored("|  6  | Spotify search & download    |", Fore.WHITE)
     print_colored("|  0  | logout                       |", Fore.WHITE)
     print(header)
     
