@@ -1,17 +1,15 @@
 import subprocess
-import platform
+import requests
 from pytube import YouTube
 from colorama import Fore, Back, Style
 
 from pyfiglet import Figlet
 from colorama import init, Fore
-import sys
-import time
+
 from colorama import init, Fore
 from tabulate import tabulate
 from colorama import init, Fore
 import subprocess
-import os
 init()
 f = Figlet(font='slant')
 
@@ -270,6 +268,48 @@ def TiktokTools():
     choicemenu()
 
 
+def SpotifyTools():
+        print(Fore.GREEN , "                                   ›—›              ")
+        print(Fore.GREEN , " —ííííí{›                     íí›  íí— ›íííz        ")
+        print(Fore.GREEN , "›í{   ›{  —› ———›     ›———   —{í——›››››{í{———    ›—›")
+        print(Fore.GREEN , "›íí{—››   ííí——{íí› {íí——{íí›—íí——›{í—›—íí——í{   íí›")
+        print(Fore.GREEN , "  ›—{ííí—›íí    —í{—í{    —|| íí›  {í— ›íí  —í— íí› ")
+        print(Fore.GREEN , " {    ›íí›íí›   {í—›íí    {í— íí›  {í— ›íí   {í—í{  ")
+        print(Fore.GREEN , "›ííííííí› ííííííí{  ›íííííí›  {ííí—{í— ›íí   ›ííz   ")
+        print(Fore.GREEN , "         ›í{                               ›{—íí    ")
+        print(Fore.GREEN , "          ——                                ›—›     ")
+        header = "+----------------------+"
+        print(header)
+        print_colored("|  Spotify Downloader  |", Fore.WHITE, Back.GREEN)
+        print(header)
+        judul_lagu =input("Masukan judul lagu => ")
+        
+        def Scrapspotify(url):
+                response = requests.get(url)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    print("Failed to fetch data from API")
+                    return None
+        url = f"https://aemt.me/search?query={judul_lagu}"
+        data = Scrapspotify(url)
+        api_data = data
+        headers = ["NO", "Title", "Artist", "Duration", "Rate"]
+        datalist = []
+        for idx, track in enumerate(api_data["data"], start=1):
+            row = [idx, track["title"], track["artist"], track["duration"], track["popularity"]]
+            datalist.append(row)
+
+        table = tabulate(datalist, headers=headers, tablefmt="fancy_grid")
+        print(table)
+        print("ya/no => lanjur cari/keluar")
+        input("Masukan nomor untuk Mendownload")
+
+
+
+
+
+
 def download_audio_as_mp3(video_url):
     try:
         yt = YouTube(video_url)
@@ -288,7 +328,7 @@ def download_audio_as_mp3(video_url):
 def get_user_choice():
     while True:
         user_input = input("Masukkan pilihan Anda (1/2/0) : ")
-        if user_input in ['1', '2', '3' ,'4', '5', '0']:
+        if user_input in ['1', '2', '3' ,'4', '5', '6','0']:
             return user_input
         else:
             print("Pilihan tidak valid. Silakan masukkan nomor pilihan yang benar.")
@@ -330,7 +370,10 @@ def main():
             
         elif user_choice == "5":
             TiktokTools()
-
+            
+        elif user_choice == "6":
+            SpotifyTools()
+            
         elif user_choice == '0':
             print("Terima kasih telah menggunakan program ini.")
             break

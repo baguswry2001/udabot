@@ -10,6 +10,7 @@ SAYA AKAN MENCOBA MENGHASILKAN 1 TOOLS PERHARI SELAMA BEBERAPA WAKTU
 - 01:38 AM - 11 APRIL 2024 | update tiktok generate comentar dan penambahan fitur youtube audio download
 - 01:51 AM - 12 april 2024 | penambahan fitur download video no watermark untuk tools tiktok
 - 23:00 AM - 12 april 2024 | penambahan fitur download audio   untuk tools tiktok
+- 02:03 AM - 15 april 2024 | penambahan fitur download lagu dari spotify
 
 
 ## Instalasi

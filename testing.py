@@ -1,44 +1,44 @@
 import requests
-import re
-import uuid
-from bs4 import BeautifulSoup
-from moviepy.editor import VideoFileClip
+from colorama import Fore, Back, Style
+from tabulate import tabulate    
+def print_colored(text, color=Fore.WHITE, bg_color=Back.BLACK):
+    print(bg_color + color + text + Style.RESET_ALL)   
+def SpotifyTools():
+        print(Fore.GREEN , "                                   ›—›              ")
+        print(Fore.GREEN , " —ííííí{›                     íí›  íí— ›íííz        ")
+        print(Fore.GREEN , "›í{   ›{  —› ———›     ›———   —{í——›››››{í{———    ›—›")
+        print(Fore.GREEN , "›íí{—››   ííí——{íí› {íí——{íí›—íí——›{í—›—íí——í{   íí›")
+        print(Fore.GREEN , "  ›—{ííí—›íí    —í{—í{    —|| íí›  {í— ›íí  —í— íí› ")
+        print(Fore.GREEN , " {    ›íí›íí›   {í—›íí    {í— íí›  {í— ›íí   {í—í{  ")
+        print(Fore.GREEN , "›ííííííí› ííííííí{  ›íííííí›  {ííí—{í— ›íí   ›ííz   ")
+        print(Fore.GREEN , "         ›í{                               ›{—íí    ")
+        print(Fore.GREEN , "          ——                                ›—›     ")
+        header = "+----------------------+"
+        print(header)
+        print_colored("|  Spotify Downloader  |", Fore.WHITE, Back.GREEN)
+        print(header)
+        judul_lagu =input("Masukan judul lagu => ")
+        
+        def Scrapspotify(url):
+                response = requests.get(url)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    print("Failed to fetch data from API")
+                    return None
+        url = f"https://aemt.me/search?query={judul_lagu}"
+        data = Scrapspotify(url)
+        api_data = data
+        headers = ["NO", "Title", "Artist", "Duration", "Rate"]
+        datalist = []
+        for idx, track in enumerate(api_data["data"], start=1):
+            row = [idx, track["title"], track["artist"], track["duration"], track["popularity"]]
+            datalist.append(row)
 
-
-
-def TiktokDownloadAudio():
-    def extract_video_id(url):
-        pattern = r'/video/(\d+)'
-        match = re.search(pattern, url)
-        if match:
-            return match.group(1)
-        else:
-            return None
-    def download_video(url, filename):
-        with open(filename, 'wb') as f:
-            response = requests.get(url, stream=True)
-            if response.status_code == 200:
-                f.write(response.content)
-                print("generate link ")
-            else:
-                print("Gagal mengenerate ")
-
-    url = input("Masukan Link : ")
-    response = requests.get(url)
-    html_content = response.text
-    soup = BeautifulSoup(html_content, 'html.parser')
-    current_url = response.url
-    IdVideo = extract_video_id(current_url)
-    random_filename = str(uuid.uuid4()) + ".mp4"
-    url_video = f"https://www.tikwm.com/video/media/play/{IdVideo}.mp4"
-    download_video(url_video, random_filename)
-    audio_filename = random_filename.split('.')[0] + ".mp3"
-    video = VideoFileClip(random_filename)
-    audio = video.audio
-    audio.write_audiofile(audio_filename)
-    video.close()
-    import os
-    os.remove(random_filename)
-    return audio_filename
-audio_file = TiktokDownloadAudio()
-print("Download audio berhasil....")
+        table = tabulate(datalist, headers=headers, tablefmt="fancy_grid")
+        print(table)
+        print("ya/no => lanjur cari/keluar")
+        input("Masukan nomor untuk Mendownload")
+        
+        
+SpotifyTools()
