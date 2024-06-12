@@ -1,18 +1,19 @@
+# Hi, thank you for appreciating and using my program. If you are viewing this source code, it means you are an excellent developer. Please continue to provide your contributions and feedback through Telegram @baguswry101101
+# hay terimakasih atas apresiasinya mengunakan program saya jika anda membukan source code ini itu artinya anda adalah seorang pengembang yang hebat terus berikan kamu kontribusi dan masukan lainya melalui telegram @baguswry101101
+
 import subprocess
 import requests
 from pytube import YouTube
 from colorama import Fore, Back, Style
-
 from pyfiglet import Figlet
 from colorama import init, Fore
-
 from colorama import init, Fore
 from tabulate import tabulate
 from colorama import init, Fore
 import subprocess
+import re
 init()
 f = Figlet(font='slant')
-
 ascii_art = f.renderText('- uda -')
 table_data = [
     [Fore.GREEN + "create by:", "bagus wirayuda" + Fore.RESET]
@@ -26,11 +27,8 @@ print(Fore.GREEN+"+--------------------------------------+")
 print(Fore.GREEN+"+     jalankan ' udabot update ' untuk +")
 print(Fore.GREEN+"+           memperbaruhi script        +")
 print(Fore.GREEN+"+--------------------------------------+")
-
 print(horizontal_line)
 print(horizontal_line)
-
-
 def download_youtube_video(url, output_path=None):
     try:
         yt = YouTube(url)
@@ -64,8 +62,7 @@ def download_youtube_video(url, output_path=None):
             main()
             break
         else:
-            print(Fore.RED +"<!> MASUKAN PILIHAN YANG BENAR [ YA/NO ] <!>")
-   
+            print(Fore.RED +"<!> MASUKAN PILIHAN YANG BENAR [ YA/NO ] <!>")   
 def download_audio_as_mp3(video_url):
     try:
         yt = YouTube(video_url)
@@ -73,13 +70,9 @@ def download_audio_as_mp3(video_url):
         audio_stream.download(filename_prefix="audio_")
         print("Unduhan audio berhasil")
     except Exception as e:
-        print("Gagal mengunduh audio:", str(e))
-        
-        
+        print("Gagal mengunduh audio:", str(e))       
 def print_colored(text, color=Fore.WHITE, bg_color=Back.BLACK):
     print(bg_color + color + text + Style.RESET_ALL)   
-
-
 def TiktokTools():
     def ComentarGenerate():
         import requests
@@ -266,7 +259,6 @@ def TiktokTools():
                 print("Terima kasih telah menggunakan program ini.")
                 break
     choicemenu()
-
 # ===================================================== SPOTIFY TOOLS =================================================
 def SpotifyToolss():
     from urllib.parse import quote
@@ -341,11 +333,7 @@ def SpotifyToolss():
             else:
                 print("Opsi tidak valid. Silakan pilih Y, D, atau X.")
     SpotifyTools()
-
 # ===================================================== SPOTIFY TOOLS =================================================
-
-
-
 def download_audio_as_mp3(video_url):
     try:
         yt = YouTube(video_url)
@@ -354,21 +342,13 @@ def download_audio_as_mp3(video_url):
         print("Unduhan audio berhasil")
     except Exception as e:
         print("Gagal mengunduh audio:", str(e))
-
-
-
-
-
-
-
 def get_user_choice():
     while True:
         user_input = input("Masukkan pilihan Anda (1/2/0) : ")
-        if user_input in ['1', '2', '3' ,'4', '5', '6','0']:
+        if user_input in ['1', '2', '3' ,'4', '5', '6','7','0']:
             return user_input
         else:
             print("Pilihan tidak valid. Silakan masukkan nomor pilihan yang benar.")
-
 def print_menu():
     header = "+------------------------------------+"
     print(header)
@@ -380,10 +360,121 @@ def print_menu():
     print_colored("|  4  | Youtube audio download       |", Fore.WHITE)
     print_colored("|  5  | Tiktok Tools                 |", Fore.WHITE)
     print_colored("|  6  | Spotify search & download    |", Fore.WHITE)
+    print_colored("|  7  | Capcut video & audio Download|", Fore.WHITE)
+    print_colored("|  8  | LK21 No Ads & Download       |", Fore.WHITE)
+    print_colored("|  9  | CINEMA INDO No Ads & Download|", Fore.WHITE)
     print_colored("|  0  | logout                       |", Fore.WHITE)
     print(header)
+# ===================================================== CAPCUT TOOLS =================================================
+def capcut_tools():
+    def viu():
+        print(' ██████╗ █████╗ ██████╗  ██████╗██╗   ██╗████████╗')
+        print('██╔════╝██╔══██╗██╔══██╗██╔════╝██║   ██║╚══██╔══╝')
+        print('██║     ███████║██████╔╝██║     ██║   ██║   ██║   ')
+        print('██║     ██╔══██║██╔═══╝ ██║     ██║   ██║   ██║   ')
+        print('╚██████╗██║  ██║██║     ╚██████╗╚██████╔╝   ██║   ')
+        print('╚═════╝╚═╝  ╚═╝╚═╝      ╚═════╝ ╚═════╝    ╚═╝   ')
+    def cmenu():
+        print(Fore.YELLOW+"+----------------------------------------+")
+        print(Fore.YELLOW+"| CAPCUT TEMPLATE VIDEO & AUDIO DOWNLOAD |")
+        print(Fore.YELLOW+"+----------------------------------------+")
+        print(Fore.YELLOW+"| 1. CAPCUPT TEMPLATE VIDEO DOWNLOAD     |")
+        print(Fore.YELLOW+"| 2. CAPCUT TEMPLATE AUDIO DOWNLOAD      |")
+        print(Fore.YELLOW+"+----------------------------------------+")
+    def c_get_user_choice():
+        while True:
+            user_input = input("Masukkan pilihan Anda (1/2/0) : ")
+            if user_input in ['1', '2','0']:
+                return user_input
+            else:
+                print("Pilihan tidak valid. Silakan masukkan nomor pilihan yang benar.")
     
+    def url_input():
+        pattern_long = re.compile(r'^https://www\.capcut\.com/templates/(\d+).*')
+        pattern_short = re.compile(r'^https://www\.capcut\.com/t/([A-Za-z0-9]+).*')
+        
+        url = input("Masukkan URL CapCut: ")
+        
+        match_long = pattern_long.match(url)
+        match_short = pattern_short.match(url)
+        
+        if match_long:
+            template_id = match_long.group(1)
+            print(f'ID Template: {template_id}')
+            return template_id
+        elif match_short:
+            return get_capcut_download_url(capcut_url=url)
+        else:
+            print("URL tidak valid")
+            return None
 
+    def get_capcut_download_url(capcut_url):
+        api_url = 'https://ssscap.net/api/download/get-url'
+        params = {'url': capcut_url}
+        try:
+            response = requests.get(api_url, params=params)
+            response.raise_for_status()
+            data = response.json()
+            template_id = re.search(r'(\d+)', data.get('url')).group(1)
+            return template_id
+        except requests.exceptions.HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err}')
+        except requests.exceptions.RequestException as req_err:
+            print(f'Request error occurred: {req_err}')
+        except ValueError:
+            print('Error decoding JSON response')
+        return None
+
+    def generate_video():
+        link = url_input()
+        if not link:
+            print("ID template tidak ditemukan. Tidak dapat melanjutkan.")
+            return
+        
+        url = f"https://ssscap.net/api/download/{link}"
+        headers = {
+            "Cookie": "__gads=ID=ba759bc380c8540c:T=1718204375:RT=1718204375:S=ALNI_MYW0-VR8k-LbsN317BxaXyurgAxxg; __gpi=UID=00000e48d499ad2a:T=1718204375:RT=1718204375:S=ALNI_MYkm_84bl57fa9e_TS-UbfS6wasTA; __eoi=ID=6d523f5f3499347f:T=1718204375:RT=1718204375:S=AA-AfjYEUmgeyqXdktlJcIGjYR2m; sign=38103ebfc9fe7380ca2510393a438025; device-time=1718204484726; FCNEC=%5B%5B%22AKsRol-9_C1d7rcyfb4a3CskWwZAammHf8ON6IdAiuKZlvxQonFgj9pLkpQQXZ7FnN-K5DWNzapQjXJcNPHzTPS7KSpkLdK1Zf-BBi519IxhNMV4wKtsZ0z9farqQeOlnPM0HRiVKd7naAAGrrn-vdwrr3rB39u-PQ%3D%3D%22%5D%2Cnull%2C%5B%5B2%2C%22%5Bnull%2C%5Bnull%2C3%2C%5B1718204377%2C686314000%5D%5D%5D%22%5D%5D%5D",
+        }
+        
+        try:
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+            response_json = response.json()
+            original_video_url = response_json["originalVideoUrl"]
+            name = response_json['title']
+            video_url = f'https://ssscap.net{original_video_url}'
+            
+            video_response = requests.get(video_url)
+            video_response.raise_for_status()
+            
+            with open(f"{name}.mp4", "wb") as f:
+                f.write(video_response.content)
+            print("Video berhasil didownload!")
+            
+        except requests.exceptions.HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err}')
+        except requests.exceptions.RequestException as req_err:
+            print(f'Request error occurred: {req_err}')
+        except Exception as e:
+            print("Terjadi kesalahan saat melakukan permintaan ke API:", e)
+
+    
+    def main_capcut():
+        while True:
+            viu()
+            cmenu()
+            user_choice = c_get_user_choice()
+            if user_choice == '1':
+                generate_video()
+            elif user_choice == "2":
+                SpotifyToolss()
+            elif user_choice == '0':
+                print("Terima kasih telah menggunakan program ini.")
+                break
+            else:
+                print("Pilihan tidak valid, silakan coba lagi.")
+    main_capcut()
+# ===================================================== CAPCUT TOOLS =================================================
 def main():
     while True:
         print_menu()
@@ -409,12 +500,14 @@ def main():
             
         elif user_choice == "6":
             SpotifyToolss()
+        elif user_choice == "7":
+            capcut_tools()
             
         elif user_choice == '0':
             print("Terima kasih telah menggunakan program ini.")
             break
-
-
+        else:
+            print("Pilihan tidak valid, silakan coba lagi.")
 if __name__ == "__main__":
     main()
 

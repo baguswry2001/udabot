@@ -12,7 +12,7 @@ SAYA AKAN MENCOBA MENGHASILKAN 1 TOOLS PERHARI SELAMA BEBERAPA WAKTU
 - 23:00 AM - 12 april 2024 | penambahan fitur download audio   untuk tools tiktok
 - 02:03 AM - 15 april 2024 | penambahan fitur download lagu dari spotify
 - 16:03 AM - 15 april 2024 | perbaikan menu pilihan pada tools spotify 
-
+- 16:03 AM - 12 juni 2024 | menambahkan menu download video dan audio template capcut 
 
 ## Instalasi
 
